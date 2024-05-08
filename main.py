@@ -11,9 +11,9 @@ def main():
             break
         if parser.parse(user_input):
             plt.axis('equal')
+            plt.show()  # Muestra la figura de manera interactiva
             plt.savefig('output.png')  # Guarda la figura como una imagen
             plt.close()  # Cierra la figura para liberar recursos
 
 if __name__ == "__main__":
-    main
-
+    main()

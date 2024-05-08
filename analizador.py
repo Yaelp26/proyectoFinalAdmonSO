@@ -1,8 +1,8 @@
 # codigo del analizador sintacticoimport matplotlib.pyplot as plt
+
 import matplotlib
 matplotlib.use('agg')  # Usa el backend "agg" para generar imágenes sin necesidad de una interfaz gráfica
 import matplotlib.pyplot as plt
-import numpy as np
 
 class Parser:
     def __init__(self):
@@ -46,3 +46,4 @@ class Parser:
     def draw_rectangle(self):
         plt.gca().add_patch(plt.Rectangle((0.25, 0.25), 0.5, 0.75, fill=None))
         return True
+
