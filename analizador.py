@@ -35,19 +35,18 @@ class Parser:
             return False
         x = [float(params[0]), float(params[2]), float(params[4])]
         y = [float(params[1]), float(params[3]), float(params[5])]
-        plt.plot(x, y)
+        plt.fill(x, y, edgecolor='black', fill=False)
         return True
 
     def draw_square(self, command):
         params = command.split()[1:]
-        if len(params) != 4:
-            print("Comando de cuadrado inválido. Debe proporcionar 4 parámetros: x, y, ancho, altura")
+        if len(params) != 3:
+            print("Comando de cuadrado inválido. Debe proporcionar 4 parámetros: x, y, largo")
             return False
         x = float(params[0])
         y = float(params[1])
-        width = float(params[2])
-        height = float(params[3])
-        plt.gca().add_patch(plt.Rectangle((x, y), width, height, fill=None))
+        large = float(params[2])
+        plt.gca().add_patch(plt.Rectangle((x, y), large, large, fill=None))
         return True
 
     def draw_circle(self, command):
