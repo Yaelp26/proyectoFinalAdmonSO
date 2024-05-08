@@ -10,7 +10,8 @@ def main():
         if user_input.lower() == 'exit':
             break
         if parser.parse(user_input):
-            plt.axis('equal')
+            plt.axis([-10, 10, -10, 10])  # Establece el rango de los ejes x e y
+            plt.gca().set_aspect('equal', adjustable='box')  # Establece la relación de aspecto de los ejes a igual
             plt.show()  # Muestra la figura de manera interactiva
             plt.savefig('output.png')  # Guarda la figura como una imagen
             plt.close()  # Cierra la figura para liberar recursos
