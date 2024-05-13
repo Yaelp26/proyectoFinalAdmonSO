@@ -3,6 +3,7 @@
 import matplotlib
 matplotlib.use('agg')  # Usa el backend "agg" para generar imágenes sin necesidad de una interfaz gráfica
 import matplotlib.pyplot as plt
+import graficacion
 
 class Parser:
     def __init__(self):
@@ -12,63 +13,82 @@ class Parser:
         commands = input_string.split(',')
         for command in commands:
             if not self.command(command.strip().lower()):
-                print("Comando inválido:", command.strip())
+                print("Comando inválido:", command.split()[0])
                 return False
         return True
 
     def command(self, command):
         if command.startswith("triangulo"):
-            return self.draw_triangle(command)
+            return self.is_triangle(command)
         elif command.startswith("cuadrado"):
-            return self.draw_square(command)
+            return self.is_square(command)
         elif command.startswith("circulo"):
-            return self.draw_circle(command)
+            return self.is_circle(command)
         elif command.startswith("rectangulo"):
-            return self.draw_rectangle(command)
+            return self.is_rectangle(command)
         else:
             return False
 
-    def draw_triangle(self, command):
+    def is_triangle(self, command):
         params = command.split()[1:]
         if len(params) != 6:
-            print("Comando de triangulo inválido. Debe proporcionar 6 parámetros: x1, y1, x2, y2, x3, y3")
+            print("Comando de triángulo inválido. Debe proporcionar 6 parámetros: x1, y1, x2, y2, x3, y3")
             return False
-        x = [float(params[0]), float(params[2]), float(params[4])]
-        y = [float(params[1]), float(params[3]), float(params[5])]
-        plt.fill(x, y, edgecolor='black', fill=False)
+
+        try:
+            params = list(map(float, params))
+        except ValueError:
+            print("Error: Los parámetros deben ser números")
+            return False
+
+        graficacion.draw_triangle(*params)
         return True
 
-    def draw_square(self, command):
+    def is_square(self, command):
         params = command.split()[1:]
         if len(params) != 3:
-            print("Comando de cuadrado inválido. Debe proporcionar 4 parámetros: x, y, largo")
+            print("Comando de cuadrado inválido. Debe proporcionar 3 parámetros: x y largo")
             return False
-        x = float(params[0])
-        y = float(params[1])
-        large = float(params[2])
-        plt.gca().add_patch(plt.Rectangle((x, y), large, large, fill=None))
+
+        try:
+            x = float(params[0])
+            y = float(params[1])
+            large = float(params[2])
+        except ValueError:
+            print("Error: Los parámetros deben ser números")
+            return False
+
+        graficacion.draw_square(x, y, large)
         return True
 
-    def draw_circle(self, command):
+    def is_circle(self, command):
         params = command.split()[1:]
         if len(params) != 3:
-            print("Comando de círculo inválido. Debe proporcionar 3 parámetros: x, y, radio")
+            print("Comando de círculo inválido. Debe proporcionar 3 parámetros: x y radio")
             return False
-        x = float(params[0])
-        y = float(params[1])
-        radius = float(params[2])
-        circle = plt.Circle((x, y), radius, fill=None)
-        plt.gca().add_patch(circle)
+        
+        try:
+            x = float(params[0])
+            y = float(params[1])
+            radius = float(params[2])
+        except ValueError:
+            print("Error: Los parámetros deben ser números")
+            return False
+
+        graficacion.draw_circle(x, y, radius)
         return True
 
-    def draw_rectangle(self, command):
+    def is_rectangle(self, command):
         params = command.split()[1:]
         if len(params) != 4:
             print("Comando de rectángulo inválido. Debe proporcionar 4 parámetros: x, y, ancho, altura")
             return False
-        x = float(params[0])
-        y = float(params[1])
-        width = float(params[2])
-        height = float(params[3])
-        plt.gca().add_patch(plt.Rectangle((x, y), width, height, fill=None))
+
+        try:
+            params = list(map(float, params))
+        except ValueError:
+            print("Error: Los parámetros deben ser números")
+            return False
+
+        graficacion.draw_rectangle(*params)
         return True
