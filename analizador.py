@@ -31,17 +31,19 @@ class Parser:
 
     def is_triangle(self, command):
         params = command.split()[1:]
-        if len(params) != 6:
-            print("Comando de triángulo inválido. Debe proporcionar 6 parámetros: x1, y1, x2, y2, x3, y3")
+        if len(params) != 3:
+            print("Comando de triángulo inválido. Debe proporcionar 3 parámetros: x, y, largo")
             return False
 
         try:
-            params = list(map(float, params))
+            x = float(params[0])
+            y = float(params[1])
+            largo = float(params[2])
         except ValueError:
             print("Error: Los parámetros deben ser números")
             return False
 
-        graficacion.draw_triangle(*params)
+        graficacion.draw_equilateral_triangle(x, y, largo)
         return True
 
     def is_square(self, command):

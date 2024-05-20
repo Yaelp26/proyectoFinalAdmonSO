@@ -1,11 +1,17 @@
 #Codigo de graficacion
 
 import matplotlib.pyplot as plt
+import math
 
-def draw_triangle(x1, y1, x2, y2, x3, y3):
-    x = [x1, x2, x3]
-    y = [y1, y2, y3]
-    plt.fill(x, y, edgecolor='black', fill=False)
+def draw_equilateral_triangle(x, y, lado):
+    altura = (math.sqrt(3) / 2) * lado
+    x2 = x + lado
+    y2 = y
+    x3 = x + (lado / 2)
+    y3 = y + altura
+    x_coords = [x, x2, x3, x]
+    y_coords = [y, y2, y3, y]
+    plt.plot(x_coords, y_coords, marker='o')
     return True
 
 def draw_square(x, y, large):
